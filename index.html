@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de perguntas</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #pergunta {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #opcoes {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .correto {
+            background-color: #26d807;
+        }
+
+        .incorreto {
+            background-color: #de0808;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="quiz-container">
+        <h1>Quiz de Perguntas e Respostas</h1>
+
+        <div id="pergunta"></div>
+        <div id="opcoes"></div>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        const perguntas = [
+            {
+                pergunta: "Qual é a capital do Brasil?",
+                opcoes: ["São Paulo", "Brasilia", "Ria de Janeiro", "Belo Horizinte"],
+                resposta: "Brasilia"
+
+            },
+            {
+                pergunta: "Quantos planeta existem em nosso sistema solar?",
+                opcoes: ["6", "7", "8", "9"],
+                resposta: "Brasil"
+            },
+            {
+                pergunta: "Quem escreveu 'Dom Quixote'?",
+                opcoes: ["William shakespeare", "Miguel de Cervantes", "friedrich", "charles Dickens"],
+                respota: "Miguel de Cervantes"
+            },
+        ];
+
+        const perguntaElemento = document.getElementById("pergunta");
+        const opcoesElemento = document.getElementById("opcoes");
+        const resultadoElemento = ducument.getElementById("resultado");
+
+        let indicePerguntaAtual = 0;
+
+        function carregarPergunta() {
+            const perguntaAtual = perguntas[indicePerguntaAtual];
+            perguntaElemento.textContent = perguntaAtual.pergunta;
+
+            opcoesElemento.innerHTML = "";
+            perguntaAtual.opcoes.forEach(opcao => {
+                const botao = document.createElement("button");
+                botao.textContent = opcao;
+                botao.addEventListener ("click", () => verificarResposta(opcao));
+                opcoesElemento.appendChild(botao);
+            });
+        }
+
+        function verificarResposta(respostaSelecionada) {
+            const perguntaAtual = perguntas[indicePerguntaAtual];
+            if (respostaSelecionada === perguntaAtual.resposta) {
+                resultadoElemento.textContent = "Resposta correta!";
+                resultadoElemento.className = "correto";
+            } else {
+                resultadoElemento.textContent = "Resposta incorreta. A resposta correta é: " + perguntaAtual.resposta;
+                resultadoElemento.className = "incorreto";
+            }
+            indicePerguntaAtual++;
+            if (indicePerguntaAtual < pergunta.length) {
+                setTimeout(carregarPergunta, 2000);
+            } else {
+                resultadoElemento.textContent = "Quiz concluindo!";
+                resultadoElemento.className = "";
+            }
+        }
+
+        carregarPergunta();
+    </script>
+
+</body>
+
+</html>
